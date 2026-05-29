@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-image-task
+spec:
+  steps:
+    - name: build
+      image: quay.io/buildah/stable
+      script: |
+        buildah bud -t counter-api:latest .
