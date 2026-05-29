@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: counter-api-pipeline
+spec:
+  tasks:
+    - name: lint
+      taskRef:
+        name: lint-task
+
+    - name: test
+      runAfter: ["lint"]
+      taskRef:
+        name: test-task
+
+    - name: build
+      runAfter: ["test"]
+      taskRef:
+        name: build-image-task
+
+    - name: deploy
+      runAfter: ["build"]
+      taskRef:
+        name: deploy-task
