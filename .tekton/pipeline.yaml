@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  name: counter-api-pipeline
+  name: counter-pipeline
 spec:
   tasks:
     - name: lint
@@ -13,12 +13,7 @@ spec:
       taskRef:
         name: test-task
 
-    - name: build
+    - name: cleanup
       runAfter: ["test"]
       taskRef:
-        name: build-image-task
-
-    - name: deploy
-      runAfter: ["build"]
-      taskRef:
-        name: deploy-task
+        name: cleanup-task
